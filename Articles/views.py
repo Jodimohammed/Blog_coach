@@ -1,3 +1,5 @@
+#Articles/views.py 
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
@@ -11,7 +13,7 @@ from django.views import View
 from django.views.generic.detail import SingleObjectMixin
 from .models import Article
 from django.urls import reverse_lazy, reverse
-from .forms import CommentForm
+from .forms import CommentForm 
 
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):  # new
@@ -22,6 +24,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):  # new
         "body",
     )
 
+    # Checking if form is valid 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -95,4 +98,4 @@ class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return obj.author == self.request.user
 
 
-# Create your views here.
+
