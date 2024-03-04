@@ -1,0 +1,41 @@
+<!-- templates/article_detail.html -->
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+
+    <div class="article-entry">
+        <h2>{{ object.title }}</h2>
+        <p>by {{ object.author }} | {{ object.date }}</p>
+        <p>{{ object.body }}</p>
+    </div>
+
+    <hr>
+
+        <h4>Comments</h4>
+<div class="container"  >
+    <div>
+        {% for comment in article.comment_set.all %}    
+        <p>{{ comment.author }}</p>
+        <p class= "bg-light py-0">{{ comment }}</p>
+        {% endfor %}
+</div>
+    <hr>
+{%if user.is_authenticated%}
+    <h4>Add a comment</h4>
+    <form action="" method="post" class="mb-4">{% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary ml-2 "type="submit">Save</button>
+    </form>
+{%endif%}
+
+    <p><a href="{% url 'article_edit' article.pk %}">Edit</a> |
+    <a href="{% url 'article_delete' article.pk %}">Delete</a></p>
+    <p>Back to <a href="{% url 'article_list' %}">All Articles</a>.</p>
+  <marquee behavior="smooth" direction="left" style="background-color: crimson; color:white; border-radius:4px;">SignIn or login to be able to comment</marquee>
+    
+</div>
+
+
+
+{% endblock content %}

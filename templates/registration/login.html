@@ -1,0 +1,13 @@
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+{% block title %}Log In{% endblock title %}
+{% block content %}
+<div class="container mb-5">
+    <h2>Log In</h2>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary ml-2" type="submit">LogIn</button>
+    </form>
+    <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+</div>
+{% endblock content %}
